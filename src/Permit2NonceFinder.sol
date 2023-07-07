@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity 0.8.19;
 
 import {ISignatureTransfer} from "permit2/src/interfaces/ISignatureTransfer.sol";
 
@@ -24,7 +24,7 @@ contract Permit2NonceFinder {
     /// @param owner The owner of the nonces
     /// @param start The nonce to start from
     /// @return nonce The first valid nonce after the given nonce
-    function nextNonce(address owner, uint256 start) external view returns (uint256 nonce) {
+    function nextNonceAfter(address owner, uint256 start) external view returns (uint256 nonce) {
         uint248 word = uint248(start >> 8);
         uint8 pos = uint8(start);
         if (pos == type(uint8).max) {

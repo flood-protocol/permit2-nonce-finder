@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity 0.8.19;
 
 import {Permit2NonceFinder} from "src/Permit2NonceFinder.sol";
 import {Test, console} from "forge-std/Test.sol";
@@ -27,19 +27,19 @@ contract Permit2NonceFinderTest is Test, DeployPermit2 {
         assertEq(finder.nextNonce(address(this)), 255);
     }
 
-    function test_findNextAfterFromStart() public {
+    function test_findNonceAfter() public {
         // We want to start from the second word
         uint256 start = 256;
         // We invalidate the whole next word to make sure it's not returned.
         permit2.invalidateUnorderedNonces(1, type(uint256).max);
-        assertEq(finder.nextNonce(address(this), start), 512);
+        assertEq(finder.nextNonceAfter(address(this), start), 512);
 
         // Invalidate the next word minus 1 nonce
         permit2.invalidateUnorderedNonces(2, type(uint256).max >> 1);
         // We should find the first nonce in the third word
-        assertEq(finder.nextNonce(address(this), 767), 768);
+        assertEq(finder.nextNonceAfter(address(this), 767), 768);
 
         // The first word is still accessible if we start from a lower nonce
-        assertEq(finder.nextNonce(address(this), 1), 2);
+        assertEq(finder.nextNonceAfter(address(this), 1), 2);
     }
 }
