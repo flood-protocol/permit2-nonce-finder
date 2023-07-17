@@ -13,7 +13,7 @@ Happy signing 🫡
 This contract is supposed to be used off-chain to find the first consumable nonce for a given `owner`.
 
 - `nextNonce(address owner)` finds the first available nonce for `owner`
-- `nextNonce(address owner, uint start)` finds the first available nonce for `owner` _after_ `start`. Use this if you're signing multiple nonces at once.
+- `nextNonceAfter(address owner, uint start)` finds the first available nonce for `owner` _after_ `start`. Use this if you're signing multiple nonces at once.
 
 ## Deployment Address
 
